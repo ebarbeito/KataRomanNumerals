@@ -24,10 +24,12 @@ class Roman
         $equivalences = self::$equivalences;
 
         krsort($equivalences);
+        loop_start:
         foreach ($equivalences as $value => $symbol) {
             if ($number >= $value) {
                 $result .= $symbol;
                 $number -= $value;
+                goto loop_start;
             }
         }
 
