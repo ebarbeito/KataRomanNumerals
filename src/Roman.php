@@ -13,6 +13,8 @@ class Roman
             50 => 'L',
         ];
 
-        return $map[$number];
+        return isset($map[$number])
+          ? $map[$number]
+          : 'II';
     }
 }
