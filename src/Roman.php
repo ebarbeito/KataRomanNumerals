@@ -15,6 +15,6 @@ class Roman
 
         return isset($map[$number])
           ? $map[$number]
-          : 'II';
+          : str_repeat('I', $number);
     }
 }

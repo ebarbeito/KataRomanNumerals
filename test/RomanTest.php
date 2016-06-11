@@ -30,4 +30,9 @@ class RomanTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals('II', Roman::of(2));
     }
+
+    public function test_3_should_be_III()
+    {
+        $this->assertEquals('III', Roman::of(3));
+    }
 }
