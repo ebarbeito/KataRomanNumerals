@@ -7,12 +7,12 @@ class Roman
     public static function of ($number)
     {
         $map = [
-            'I' => 1,
-            'V' => 5,
-            'X' => 10,
-            'L' => 50,
+            1 => 'I',
+            5 => 'V',
+            10 => 'X',
+            50 => 'L',
         ];
 
-        return array_flip($map)[$number];
+        return $map[$number];
     }
 }
