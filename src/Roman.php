@@ -17,6 +17,10 @@ class Roman
             return $map[$number];
         }
 
-        return str_repeat('I', $number);
+        if (4 > $number) {
+            return str_repeat('I', $number);
+        }
+
+        return 'IV';
     }
 }
