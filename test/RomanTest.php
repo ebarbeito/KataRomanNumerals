@@ -50,4 +50,9 @@ class RomanTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals('VIII', Roman::of(8));
     }
+
+    public function test_9_should_be_IX()
+    {
+        $this->assertEquals('IX', Roman::of(9));
+    }
 }
