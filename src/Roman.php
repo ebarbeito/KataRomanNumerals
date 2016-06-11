@@ -20,10 +20,9 @@ class Roman
             return str_repeat('I', $number);
         }
 
-        if (6 === $number) {
-            return 'VI';
+        switch ($number) {
+            case 4: return 'IV';
+            case 6: return 'VI';
         }
-
-        return 'IV';
     }
 }
