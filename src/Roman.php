@@ -10,8 +10,10 @@ class Roman
             return 'I';
         } elseif (5 === $number) {
             return 'V';
-        } else {
+        } elseif (10 === $number) {
             return 'X';
+        } elseif (50 === $number) {
+            return 'L';
         }
     }
 }
