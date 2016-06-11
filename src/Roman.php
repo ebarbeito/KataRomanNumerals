@@ -8,8 +8,10 @@ class Roman
     {
         if (1 === $number) {
             return 'I';
+        } elseif (5 === $number) {
+            return 'V';
+        } else {
+            return 'X';
         }
-
-        return 'V';
     }
 }
