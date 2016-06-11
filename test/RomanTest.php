@@ -25,8 +25,18 @@ class RomanTest extends \PHPUnit_Framework_TestCase
 
     public function test_arabic_to_roman()
     {
-        foreach ($this->cases as $symbol => $number) {
-            $this->assertEquals($symbol, Roman::of($number));
+        foreach ($this->cases as $symbol => $value) {
+            $this->assertEquals($symbol, Roman::of($value));
         }
+    }
+
+    public function test_12_should_be_XII()
+    {
+        $this->assertEquals('XII', Roman::of(12));
+    }
+
+    public function test_13_should_be_XIII()
+    {
+        $this->assertEquals('XIII', Roman::of(13));
     }
 }
