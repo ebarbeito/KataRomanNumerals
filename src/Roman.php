@@ -13,6 +13,7 @@ class Roman
       8 => 'VIII',
       9 => 'IX',
       10 => 'X',
+      11 => 'XI',
     ];
 
     public static function of ($number)
