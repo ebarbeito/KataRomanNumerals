@@ -13,8 +13,10 @@ class Roman
             50 => 'L',
         ];
 
-        return isset($map[$number])
-          ? $map[$number]
-          : str_repeat('I', $number);
+        if (true === isset($map[$number])) {
+            return $map[$number];
+        }
+
+        return str_repeat('I', $number);
     }
 }
