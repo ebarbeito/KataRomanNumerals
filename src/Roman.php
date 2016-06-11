@@ -18,8 +18,19 @@ class Roman
       11 => 'XI',
     ];
 
-    public static function of ($number)
+    public static function of($number)
     {
-        return self::$equivalences[$number];
+        $result = '';
+        $equivalences = self::$equivalences;
+
+        krsort($equivalences);
+        foreach ($equivalences as $value => $symbol) {
+            if ($number >= $value) {
+                $result .= $symbol;
+                $number -= $value;
+            }
+        }
+
+        return $result;
     }
 }
