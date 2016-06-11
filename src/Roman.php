@@ -6,14 +6,13 @@ class Roman
 {
     public static function of ($number)
     {
-        if (1 === $number) {
-            return 'I';
-        } elseif (5 === $number) {
-            return 'V';
-        } elseif (10 === $number) {
-            return 'X';
-        } elseif (50 === $number) {
-            return 'L';
-        }
+        $map = [
+            'I' => 1,
+            'V' => 5,
+            'X' => 10,
+            'L' => 50,
+        ];
+
+        return array_flip($map)[$number];
     }
 }
