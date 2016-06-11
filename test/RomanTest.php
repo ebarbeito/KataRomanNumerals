@@ -21,11 +21,6 @@ class RomanTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('X', Roman::of(10));
     }
 
-    public function test_50_should_be_L()
-    {
-        $this->assertEquals('L', Roman::of(50));
-    }
-
     public function test_2_should_be_II()
     {
         $this->assertEquals('II', Roman::of(2));
