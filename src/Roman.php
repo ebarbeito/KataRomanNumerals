@@ -9,5 +9,7 @@ class Roman
         if (1 === $number) {
             return 'I';
         }
+
+        return 'V';
     }
 }
