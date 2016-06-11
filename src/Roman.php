@@ -8,7 +8,9 @@ class Roman
     {
         $map = [
             1 => 'I',
+            4 => 'IV',
             5 => 'V',
+            6 => 'VI',
             10 => 'X',
         ];
 
@@ -18,11 +20,6 @@ class Roman
 
         if (4 > $number) {
             return str_repeat('I', $number);
-        }
-
-        switch ($number) {
-            case 4: return 'IV';
-            case 6: return 'VI';
         }
     }
 }
