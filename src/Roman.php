@@ -16,6 +16,7 @@ class Roman
       9 => 'IX',
       10 => 'X',
       11 => 'XI',
+      14 => 'XIV',
     ];
 
     public static function of($number)

@@ -39,4 +39,9 @@ class RomanTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals('XIII', Roman::of(13));
     }
+
+    public function test_14_should_be_XIV()
+    {
+        $this->assertEquals('XIV', Roman::of(14));
+    }
 }
