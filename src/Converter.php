@@ -5,16 +5,18 @@ namespace KataRomanNumerals;
 class Converter
 {
     /**
+     * Roman numerals map that encode() relies on.
+     *
      * @var Numeral[]
      */
-    private $equivalences;
+    private $map;
 
     /**
      * Converter constructor.
      */
     public function __construct()
     {
-        $this->equivalences = [
+        $this->map = [
           Numeral::of('I', 1),
           Numeral::of('IV', 4),
           Numeral::of('V', 5),
@@ -41,16 +43,13 @@ class Converter
     public function encode($number)
     {
         $result = '';
-        $equivalences = $this->reverseOrderNumeralList($this->equivalences);
+        $list = $this->reverseOrderNumeralList($this->map);
 
         while (0 < $number) {
-            foreach ($equivalences as $value => $numeral) {
-                if ($number >= $numeral->value()) {
-                    $result .= $numeral->symbol();
-                    $number -= $numeral->value();
-                    break;
-                }
-            }
+            $numeral = $this->findOneByValueInList($list, $number);
+
+            $result .= $numeral->symbol();
+            $number -= $numeral->value();
         }
 
         return $result;
@@ -59,15 +58,15 @@ class Converter
     /**
      * Returns a new numeral array-list reverse ordered
      *
-     * @param Numeral[] $numerals
+     * @param Numeral[] $list
      *
      * @return Numeral[]
      */
-    private function reverseOrderNumeralList(array $numerals)
+    private function reverseOrderNumeralList(array $list)
     {
         $result = [];
 
-        foreach ($numerals as $numeral) {
+        foreach ($list as $numeral) {
             $key = $numeral->value();
 
             $result[$key] = $numeral;
@@ -76,5 +75,29 @@ class Converter
         krsort($result);
 
         return $result;
+    }
+
+    /**
+     * Find one roman numeral by its value.
+     *
+     * @param Numeral[] $list
+     * @param int $number
+     *
+     * @return mixed
+     *
+     * @throws \DomainException
+     */
+    private function findOneByValueInList(array $list, $number)
+    {
+        foreach ($list as $value => $numeral) {
+            if ($number >= $numeral->value()) {
+                return $numeral;
+            }
+        }
+
+        // theoretically, it does not reach here (not tested)
+        throw new \DomainException(
+          sprintf('Value "%d" not found in list.', $number)
+        );
     }
 }
