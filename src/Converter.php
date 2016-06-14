@@ -43,12 +43,13 @@ class Converter
         $result = '';
         $equivalences = $this->reverseOrderNumeralList($this->equivalences);
 
-        loop_start:
-        foreach ($equivalences as $value => $numeral) {
-            if ($number >= $numeral->value()) {
-                $result .= $numeral->symbol();
-                $number -= $numeral->value();
-                goto loop_start;
+        while (0 < $number) {
+            foreach ($equivalences as $value => $numeral) {
+                if ($number >= $numeral->value()) {
+                    $result .= $numeral->symbol();
+                    $number -= $numeral->value();
+                    break;
+                }
             }
         }
 
