@@ -29,4 +29,14 @@ class RomanTest extends \PHPUnit_Framework_TestCase
             $this->assertEquals($symbol, Roman::of($value));
         }
     }
+
+    public function test_60_should_be_LX()
+    {
+        $this->assertEquals('LX', Roman::of(60));
+    }
+
+    public function test_90_should_be_LX()
+    {
+        $this->assertEquals('XC', Roman::of(90));
+    }
 }
