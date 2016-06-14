@@ -15,19 +15,19 @@ class Converter
     public function __construct()
     {
         $this->equivalences = [
-          1 => Numeral::of('I', 1),
-          4 => Numeral::of('IV', 4),
-          5 => Numeral::of('V', 5),
-          9 => Numeral::of('IX', 9),
-          10 => Numeral::of('X', 10),
-          40 => Numeral::of('XL', 40),
-          50 => Numeral::of('L', 50),
-          90 => Numeral::of('XC', 90),
-          100 => Numeral::of('C', 100),
-          400 => Numeral::of('CD', 400),
-          500 => Numeral::of('D', 500),
-          900 => Numeral::of('CM', 900),
-          1000 => Numeral::of('M', 1000),
+          Numeral::of('I', 1),
+          Numeral::of('IV', 4),
+          Numeral::of('V', 5),
+          Numeral::of('IX', 9),
+          Numeral::of('X', 10),
+          Numeral::of('XL', 40),
+          Numeral::of('L', 50),
+          Numeral::of('XC', 90),
+          Numeral::of('C', 100),
+          Numeral::of('CD', 400),
+          Numeral::of('D', 500),
+          Numeral::of('CM', 900),
+          Numeral::of('M', 1000),
         ];
     }
 
@@ -41,9 +41,8 @@ class Converter
     public function encode($number)
     {
         $result = '';
-        $equivalences = $this->equivalences;
+        $equivalences = $this->reverseOrderNumeralList($this->equivalences);
 
-        krsort($equivalences);
         loop_start:
         foreach ($equivalences as $value => $numeral) {
             if ($number >= $numeral->value()) {
@@ -52,6 +51,28 @@ class Converter
                 goto loop_start;
             }
         }
+
+        return $result;
+    }
+
+    /**
+     * Returns a new numeral array-list reverse ordered
+     *
+     * @param Numeral[] $numerals
+     *
+     * @return Numeral[]
+     */
+    private function reverseOrderNumeralList(array $numerals)
+    {
+        $result = [];
+
+        foreach ($numerals as $numeral) {
+            $key = $numeral->value();
+
+            $result[$key] = $numeral;
+        }
+
+        krsort($result);
 
         return $result;
     }
