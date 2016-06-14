@@ -13,6 +13,14 @@ class ConverterTest extends \PHPUnit_Framework_TestCase
      */
     private $cases;
 
+    /**
+     * @var Converter
+     */
+    private $converter;
+
+    /**
+     * ConverterTest setUp.
+     */
     protected function setUp()
     {
         $filepath = sprintf('%s/cases.json', __DIR__);
@@ -21,12 +29,17 @@ class ConverterTest extends \PHPUnit_Framework_TestCase
         $this->cases = (false !== $data)
           ? json_decode($data)
           : [];
+
+        $this->converter = new Converter();
     }
 
+    /**
+     * Test the JSON data suite cases.
+     */
     public function test_number_to_roman()
     {
         foreach ($this->cases as $symbol => $value) {
-            $this->assertEquals($symbol, Converter::encode($value));
+            $this->assertEquals($symbol, $this->converter->encode($value));
         }
     }
 }
