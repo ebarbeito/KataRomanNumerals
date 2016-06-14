@@ -2,7 +2,7 @@
 
 namespace KataRomanNumerals;
 
-class Roman
+class Converter
 {
     private static $equivalences = [
       1 => 'I',
@@ -20,7 +20,7 @@ class Roman
       1000 => 'M',
     ];
 
-    public static function of($number)
+    public static function encode($number)
     {
         $result = '';
         $equivalences = self::$equivalences;

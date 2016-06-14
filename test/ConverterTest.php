@@ -2,9 +2,9 @@
 
 namespace KataRomanNumerals\Test;
 
-use KataRomanNumerals\Roman;
+use KataRomanNumerals\Converter;
 
-class RomanTest extends \PHPUnit_Framework_TestCase
+class ConverterTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Test cases.
@@ -26,7 +26,7 @@ class RomanTest extends \PHPUnit_Framework_TestCase
     public function test_number_to_roman()
     {
         foreach ($this->cases as $symbol => $value) {
-            $this->assertEquals($symbol, Roman::of($value));
+            $this->assertEquals($symbol, Converter::encode($value));
         }
     }
 }
