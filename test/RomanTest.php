@@ -44,4 +44,9 @@ class RomanTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals('CD', Roman::of(400));
     }
+
+    public function test_900_should_be_CM()
+    {
+        $this->assertEquals('CM', Roman::of(900));
+    }
 }
