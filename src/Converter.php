@@ -5,7 +5,7 @@ namespace KataRomanNumerals;
 class Converter
 {
     /**
-     * @var array
+     * @var Numeral[]
      */
     private $equivalences;
 
@@ -15,19 +15,19 @@ class Converter
     public function __construct()
     {
         $this->equivalences = [
-          1 => 'I',
-          4 => 'IV',
-          5 => 'V',
-          9 => 'IX',
-          10 => 'X',
-          40 => 'XL',
-          50 => 'L',
-          90 => 'XC',
-          100 => 'C',
-          400 => 'CD',
-          500 => 'D',
-          900 => 'CM',
-          1000 => 'M',
+          1 => Numeral::of('I', 1),
+          4 => Numeral::of('IV', 4),
+          5 => Numeral::of('V', 5),
+          9 => Numeral::of('IX', 9),
+          10 => Numeral::of('X', 10),
+          40 => Numeral::of('XL', 40),
+          50 => Numeral::of('L', 50),
+          90 => Numeral::of('XC', 90),
+          100 => Numeral::of('C', 100),
+          400 => Numeral::of('CD', 400),
+          500 => Numeral::of('D', 500),
+          900 => Numeral::of('CM', 900),
+          1000 => Numeral::of('M', 1000),
         ];
     }
 
@@ -45,10 +45,10 @@ class Converter
 
         krsort($equivalences);
         loop_start:
-        foreach ($equivalences as $value => $symbol) {
-            if ($number >= $value) {
-                $result .= $symbol;
-                $number -= $value;
+        foreach ($equivalences as $value => $numeral) {
+            if ($number >= $numeral->value()) {
+                $result .= $numeral->symbol();
+                $number -= $numeral->value();
                 goto loop_start;
             }
         }
