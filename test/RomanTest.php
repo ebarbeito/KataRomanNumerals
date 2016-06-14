@@ -54,4 +54,12 @@ class RomanTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals('XVI', Roman::of(16));
     }
+
+    public function test_all_remaining_simple_symbols_in_map()
+    {
+        $this->assertEquals('L', Roman::of(50));
+        $this->assertEquals('C', Roman::of(100));
+        $this->assertEquals('D', Roman::of(500));
+        $this->assertEquals('M', Roman::of(1000));
+    }
 }
