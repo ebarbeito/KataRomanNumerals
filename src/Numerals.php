@@ -12,10 +12,14 @@ class Numerals implements \Countable
 
     /**
      * Numerals constructor.
+     *
+     * @param Numeral ...$numerals
      */
-    public function __construct()
+    public function __construct(Numeral ...$numerals)
     {
-        $this->items = [];
+        $this->items = array_map(function($numeral) {
+            return $numeral;
+        }, $numerals);
     }
 
     /**
