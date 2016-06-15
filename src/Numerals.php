@@ -45,6 +45,29 @@ class Numerals implements \ArrayAccess, \Countable
     }
 
     /**
+     * Finds one roman numeral by its value.
+     *
+     * @param int $number
+     *
+     * @return Numeral
+     *
+     * @throws \DomainException
+     */
+    public function findOneByValue($number)
+    {
+        foreach ($this->items as $value => $numeral) {
+            if ($number >= $numeral->value()) {
+                return $numeral;
+            }
+        }
+
+        // theoretically, it does not reach here (not tested)
+        throw new \DomainException(
+          sprintf('Value "%d" not found in list.', $number)
+        );
+    }
+
+    /**
      * @inheritDoc
      */
     public function offsetExists($offset)
@@ -80,5 +103,29 @@ class Numerals implements \ArrayAccess, \Countable
     public function offsetUnset($offset)
     {
         unset($this->items[$offset]);
+    }
+
+    /**
+     * Returns a new numeral list sorted in reverse order.
+     *
+     * @return Numerals
+     */
+    public function reverseSort()
+    {
+        $list = [];
+
+        foreach ($this->items as $numeral) {
+            $key = $numeral->value();
+
+            $list[$key] = $numeral;
+        }
+
+        krsort($list);
+
+        return array_reduce(
+          array_values($list),
+          function (Numerals $result, Numeral $numeral) {
+              return $result->add($numeral);
+          }, new Numerals());
     }
 }
