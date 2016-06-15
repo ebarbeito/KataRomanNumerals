@@ -2,7 +2,7 @@
 
 namespace KataRomanNumerals;
 
-class Numerals implements \Countable
+class Numerals implements \ArrayAccess, \Countable
 {
 
     /**
@@ -37,12 +37,48 @@ class Numerals implements \Countable
     }
 
     /**
-     * Returns the number of items in the list.
-     *
-     * @return Numeral[]
+     * @inheritDoc
      */
     public function count()
     {
         return count($this->items);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function offsetExists($offset)
+    {
+        return true === array_key_exists($offset, $this->items);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function offsetGet($offset)
+    {
+        return (true === isset($this->items[$offset]))
+          ? $this->items[$offset]
+          : null;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function offsetSet($offset, $value)
+    {
+        if (null !== $offset) {
+            $this->items[$offset] = $value;
+        } else {
+            $this->items[] = $value;
+        }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function offsetUnset($offset)
+    {
+        unset($this->items[$offset]);
     }
 }
