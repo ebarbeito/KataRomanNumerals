@@ -17,9 +17,7 @@ class Numerals implements \ArrayAccess, \Countable
      */
     public function __construct(Numeral ...$numerals)
     {
-        $this->items = array_map(function($numeral) {
-            return $numeral;
-        }, $numerals);
+        $this->items = $numerals;
     }
 
     /**
@@ -63,7 +61,7 @@ class Numerals implements \ArrayAccess, \Countable
 
         // theoretically, it does not reach here (not tested)
         throw new \DomainException(
-          sprintf('Value "%d" not found in list.', $number)
+            sprintf('Value "%d" not found in list.', $number)
         );
     }
 
@@ -81,8 +79,8 @@ class Numerals implements \ArrayAccess, \Countable
     public function offsetGet($offset)
     {
         return (true === isset($this->items[$offset]))
-          ? $this->items[$offset]
-          : null;
+            ? $this->items[$offset]
+            : null;
     }
 
     /**
@@ -123,9 +121,11 @@ class Numerals implements \ArrayAccess, \Countable
         krsort($list);
 
         return array_reduce(
-          array_values($list),
-          function (Numerals $result, Numeral $numeral) {
-              return $result->add($numeral);
-          }, new Numerals());
+            array_values($list),
+            function (Numerals $result, Numeral $numeral) {
+                return $result->add($numeral);
+            },
+            new Numerals()
+        );
     }
 }
