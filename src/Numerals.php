@@ -2,22 +2,17 @@
 
 namespace KataRomanNumerals;
 
-class Numerals implements \ArrayAccess, \Countable
+class Numerals extends \ArrayObject
 {
-
-    /**
-     * @var Numeral[]
-     */
-    private $items;
 
     /**
      * Numerals constructor.
      *
-     * @param Numeral ...$numerals
+     * @param Numeral|Numeral[] ...$numerals
      */
     public function __construct(Numeral ...$numerals)
     {
-        $this->items = $numerals;
+        parent::__construct($numerals);
     }
 
     /**
@@ -29,17 +24,9 @@ class Numerals implements \ArrayAccess, \Countable
      */
     public function add(Numeral $numeral)
     {
-        $this->items[] = $numeral;
+        $this->append($numeral);
 
         return $this;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function count()
-    {
-        return count($this->items);
     }
 
     /**
@@ -53,7 +40,8 @@ class Numerals implements \ArrayAccess, \Countable
      */
     public function findOneByValue($number)
     {
-        foreach ($this->items as $value => $numeral) {
+        /** @var Numeral $numeral */
+        foreach ($this->getArrayCopy() as $numeral) {
             if ($number >= $numeral->value()) {
                 return $numeral;
             }
@@ -66,49 +54,13 @@ class Numerals implements \ArrayAccess, \Countable
     }
 
     /**
-     * @inheritDoc
-     */
-    public function offsetExists($offset)
-    {
-        return array_key_exists($offset, $this->items);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function offsetGet($offset)
-    {
-        return isset($this->items[$offset]) ? $this->items[$offset] : null;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function offsetSet($offset, $value)
-    {
-        if (null !== $offset) {
-            $this->items[$offset] = $value;
-        } else {
-            $this->items[] = $value;
-        }
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function offsetUnset($offset)
-    {
-        unset($this->items[$offset]);
-    }
-
-    /**
      * Returns a new numeral list sorted in reverse order.
      *
      * @return Numerals
      */
     public function reverseSort()
     {
-        $reversed = array_reverse($this->items);
+        $reversed = array_reverse($this->getArrayCopy());
 
         return new Numerals(...$reversed);
     }
