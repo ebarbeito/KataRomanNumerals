@@ -7,24 +7,12 @@ use KataRomanNumerals\Converter;
 class ConverterTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Converter
-     */
-    private $converter;
-
-    /**
-     * ConverterTest setUp.
-     */
-    protected function setUp()
-    {
-        $this->converter = new Converter();
-    }
-
-    /**
      * @dataProvider convertTestCases
      */
     public function test_number_to_roman($symbol, $value)
     {
-        $this->assertEquals($symbol, $this->converter->encode($value));
+        $converter = new Converter();
+        $this->assertEquals($symbol, $converter->encode($value));
     }
 
     public function convertTestCases()
