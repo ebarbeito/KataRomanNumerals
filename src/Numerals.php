@@ -108,16 +108,8 @@ class Numerals implements \ArrayAccess, \Countable
      */
     public function reverseSort()
     {
-        $list = [];
+        $reversed = array_reverse($this->items);
 
-        foreach ($this->items as $numeral) {
-            $key = $numeral->value();
-
-            $list[$key] = $numeral;
-        }
-
-        krsort($list);
-
-        return new Numerals(...$list);
+        return new Numerals(...$reversed);
     }
 }
