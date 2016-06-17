@@ -8,11 +8,6 @@ use KataRomanNumerals\Numerals;
 class NumeralsTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Numeral
-     */
-    private $xlii;
-
-    /**
      * @var Numerals
      */
     private $list;
@@ -22,14 +17,12 @@ class NumeralsTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->xlii = Numeral::of('XLII', 42);
-
         $this->list = new Numerals();
     }
 
     public function test_numeral_XLII_should_be_added_to_list()
     {
-        $this->list->add($this->xlii);
+        $this->list->add($this->aNumeral());
 
         $this->assertEquals(1, count($this->list));
     }
@@ -55,16 +48,25 @@ class NumeralsTest extends \PHPUnit_Framework_TestCase
 
     public function test_list_should_be_array_access()
     {
-        $this->list[] = $this->xlii;
+        $numeral = $this->aNumeral();
+        $this->list[] = $numeral;
 
         $this->assertEquals(1, $this->list->count());
 
         $this->assertTrue(true === isset($this->list[0]));
 
-        $this->assertEquals(42, $this->list[0]->value());
+        $this->assertSame($numeral, $this->list[0]);
 
         unset($this->list[0]);
 
         $this->assertEquals(0, count($this->list));
+    }
+
+    /**
+     * @return Numeral
+     */
+    protected function aNumeral()
+    {
+        return Numeral::of('I', 1);
     }
 }
