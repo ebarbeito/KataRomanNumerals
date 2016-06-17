@@ -46,7 +46,7 @@ class Converter
         $list = $this->map->reverseSort();
 
         while (0 < $number) {
-            $numeral = $list->findOneByValue($number);
+            $numeral = $list->findTheSmallestGreaterNumber($number);
 
             $result .= $numeral->symbol();
             $number -= $numeral->value();

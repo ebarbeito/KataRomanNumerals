@@ -38,7 +38,7 @@ class Numerals extends \ArrayObject
      *
      * @throws \DomainException
      */
-    public function findOneByValue($number)
+    public function findTheSmallestGreaterNumber($number)
     {
         /** @var Numeral $numeral */
         foreach ($this->getArrayCopy() as $numeral) {
