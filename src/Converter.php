@@ -17,19 +17,19 @@ class Converter
     public function __construct()
     {
         $this->map = new Numerals(
-          Numeral::of('I', 1),
-          Numeral::of('IV', 4),
-          Numeral::of('V', 5),
-          Numeral::of('IX', 9),
-          Numeral::of('X', 10),
-          Numeral::of('XL', 40),
-          Numeral::of('L', 50),
-          Numeral::of('XC', 90),
-          Numeral::of('C', 100),
-          Numeral::of('CD', 400),
-          Numeral::of('D', 500),
-          Numeral::of('CM', 900),
-          Numeral::of('M', 1000)
+            Numeral::of('I', 1),
+            Numeral::of('IV', 4),
+            Numeral::of('V', 5),
+            Numeral::of('IX', 9),
+            Numeral::of('X', 10),
+            Numeral::of('XL', 40),
+            Numeral::of('L', 50),
+            Numeral::of('XC', 90),
+            Numeral::of('C', 100),
+            Numeral::of('CD', 400),
+            Numeral::of('D', 500),
+            Numeral::of('CM', 900),
+            Numeral::of('M', 1000)
         );
     }
 
