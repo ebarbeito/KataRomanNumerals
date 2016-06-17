@@ -70,7 +70,7 @@ class Numerals implements \ArrayAccess, \Countable
      */
     public function offsetExists($offset)
     {
-        return true === array_key_exists($offset, $this->items);
+        return array_key_exists($offset, $this->items);
     }
 
     /**
