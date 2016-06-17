@@ -43,10 +43,9 @@ class Converter
     public function encode($number)
     {
         $result = '';
-        $list = $this->map->reverseSort();
 
         while (0 < $number) {
-            $numeral = $list->findTheSmallestGreaterNumber($number);
+            $numeral = $this->map->findTheSmallestGreaterNumber($number);
 
             $result .= $numeral->symbol();
             $number -= $numeral->value();

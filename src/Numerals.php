@@ -40,28 +40,21 @@ class Numerals extends \ArrayObject
      */
     public function findTheSmallestGreaterNumber($number)
     {
+        $result = null;
         /** @var Numeral $numeral */
         foreach ($this->getArrayCopy() as $numeral) {
-            if ($number >= $numeral->value()) {
-                return $numeral;
+            if ($number < $numeral->value()) {
+                break;
             }
+            $result = $numeral;
         }
 
-        // theoretically, it does not reach here (not tested)
-        throw new \DomainException(
-            sprintf('Value "%d" not found in list.', $number)
-        );
-    }
+        if ($result == null) {
+            throw new \DomainException(
+                sprintf('Value "%d" not found in list.', $number)
+            );
+        }
 
-    /**
-     * Returns a new numeral list sorted in reverse order.
-     *
-     * @return Numerals
-     */
-    public function reverseSort()
-    {
-        $reversed = array_reverse($this->getArrayCopy());
-
-        return new Numerals(...$reversed);
+        return $result;
     }
 }
