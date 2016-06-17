@@ -78,9 +78,7 @@ class Numerals implements \ArrayAccess, \Countable
      */
     public function offsetGet($offset)
     {
-        return (true === isset($this->items[$offset]))
-            ? $this->items[$offset]
-            : null;
+        return isset($this->items[$offset]) ? $this->items[$offset] : null;
     }
 
     /**
