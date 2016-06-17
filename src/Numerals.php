@@ -118,12 +118,6 @@ class Numerals implements \ArrayAccess, \Countable
 
         krsort($list);
 
-        return array_reduce(
-            array_values($list),
-            function (Numerals $result, Numeral $numeral) {
-                return $result->add($numeral);
-            },
-            new Numerals()
-        );
+        return new Numerals(...$list);
     }
 }
