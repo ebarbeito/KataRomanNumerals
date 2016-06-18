@@ -64,6 +64,10 @@ class Converter
      */
     public function decode($symbol)
     {
-        return 1;
+        foreach ($this->map as $numeral) {
+            if ($symbol === $numeral->symbol()) {
+                return $numeral->value();
+            }
+        }
     }
 }

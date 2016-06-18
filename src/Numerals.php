@@ -2,7 +2,7 @@
 
 namespace KataRomanNumerals;
 
-class Numerals implements \ArrayAccess, \Countable
+class Numerals implements \ArrayAccess, \Countable, \IteratorAggregate
 {
 
     /**
@@ -42,6 +42,14 @@ class Numerals implements \ArrayAccess, \Countable
     public function count()
     {
         return count($this->items);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getIterator()
+    {
+        return new \ArrayIterator($this->items);
     }
 
     /**
