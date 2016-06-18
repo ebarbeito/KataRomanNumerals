@@ -73,7 +73,7 @@ class Converter
         }
 
         if (0 === $result) {
-            return 3;
+            return count(str_split($symbol));
         }
 
         return $result;
