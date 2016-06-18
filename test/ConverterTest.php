@@ -52,4 +52,9 @@ class ConverterTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals(4, $this->converter->decode('IV'));
     }
+
+    public function test_III_should_be_3()
+    {
+        $this->assertEquals(3, $this->converter->decode('III'));
+    }
 }
