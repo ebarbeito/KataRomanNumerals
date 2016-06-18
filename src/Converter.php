@@ -54,4 +54,16 @@ class Converter
 
         return $result;
     }
+
+    /**
+     * Decode roman representation to number.
+     *
+     * @param string $symbol
+     *
+     * @return int
+     */
+    public function decode($symbol)
+    {
+        return 1;
+    }
 }

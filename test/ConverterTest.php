@@ -42,4 +42,9 @@ class ConverterTest extends \PHPUnit_Framework_TestCase
             $this->assertEquals($symbol, $this->converter->encode($value));
         }
     }
+
+    public function test_I_should_be_1()
+    {
+        $this->assertEquals(1, $this->converter->decode('I'));
+    }
 }
