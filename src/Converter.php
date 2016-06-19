@@ -46,7 +46,7 @@ class Converter
         $list = $this->map->reverseSort();
 
         while (0 < $number) {
-            $numeral = $list->findOneByValue($number);
+            $numeral = $this->findNumeralByValue($list, $number);
 
             $result .= $numeral->symbol();
             $number -= $numeral->value();
@@ -68,16 +68,44 @@ class Converter
         $list = $this->map->reverseSort();
 
         while (0 < strlen($symbol)) {
-            try {
-                $numeral = $list->findOneBySymbol(substr($symbol, 0, 2));
-            } catch (\DomainException $ex) {
-                $numeral = $list->findOneBySymbol(substr($symbol, 0, 1));
-            }
+            $numeral = $this->findNumeralBySymbol($list, $symbol);
 
             $result += $numeral->value();
             $symbol = substr($symbol, strlen($numeral->symbol()), strlen($symbol));
         }
 
         return $result;
+    }
+
+    /**
+     * Finds roman numeral by symbol.
+     *
+     * @param Numerals $list
+     * @param string $symbol
+     *
+     * @return Numeral
+     */
+    private function findNumeralBySymbol($list, $symbol)
+    {
+        try {
+            $result = $list->findOneBySymbol(substr($symbol, 0, 2));
+        } catch (\DomainException $ex) {
+            $result = $list->findOneBySymbol(substr($symbol, 0, 1));
+        } finally {
+            return $result;
+        }
+    }
+
+    /**
+     * Finds roman numeral by value.
+     *
+     * @param Numerals $list
+     * @param int $value
+     *
+     * @return Numeral
+     */
+    private function findNumeralByValue($list, $value)
+    {
+        return $list->findOneByValue($value);
     }
 }
