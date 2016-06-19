@@ -57,4 +57,9 @@ class ConverterTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertEquals(3, $this->converter->decode('III'));
     }
+
+    public function test_VIII_should_be_8()
+    {
+        $this->assertEquals(8, $this->converter->decode('VIII'));
+    }
 }

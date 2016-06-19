@@ -65,15 +65,26 @@ class Converter
     public function decode($symbol)
     {
         $result = 0;
+        $list = $this->map->reverseSort();
 
-        foreach ($this->map as $numeral) {
+        foreach ($list as $numeral) {
             if ($symbol === $numeral->symbol()) {
                 $result += $numeral->value();
             }
         }
 
         if (0 === $result) {
-            return count(str_split($symbol));
+            while (0 < strlen($symbol)) {
+                $substr = substr($symbol, 0, 1);
+
+                foreach ($list as $numeral) {
+                    if ($substr === $numeral->symbol()) {
+                        $result += $numeral->value();
+                        $symbol = substr($symbol, 1, strlen($symbol));
+                        break;
+                    }
+                }
+            }
         }
 
         return $result;
