@@ -67,23 +67,16 @@ class Converter
         $result = 0;
         $list = $this->map->reverseSort();
 
-        foreach ($list as $numeral) {
-            if ($symbol === $numeral->symbol()) {
-                $result += $numeral->value();
-            }
-        }
+        try {
+            $result = $list->findOneBySymbol($symbol)->value();
+        } catch (\Exception $ex) {}
 
         if (0 === $result) {
             while (0 < strlen($symbol)) {
-                $substr = substr($symbol, 0, 1);
+                $numeral = $list->findOneBySymbol(substr($symbol, 0, 1));
 
-                foreach ($list as $numeral) {
-                    if ($substr === $numeral->symbol()) {
-                        $result += $numeral->value();
-                        $symbol = substr($symbol, 1, strlen($symbol));
-                        break;
-                    }
-                }
+                $result += $numeral->value();
+                $symbol = substr($symbol, 1, strlen($symbol));
             }
         }
 

@@ -53,6 +53,29 @@ class Numerals implements \ArrayAccess, \Countable, \IteratorAggregate
     }
 
     /**
+     * Finds one roman numeral by its symbol.
+     *
+     * @param string $symbol
+     *
+     * @return Numeral
+     *
+     * @throws \DomainException
+     */
+    public function findOneBySymbol($symbol)
+    {
+        foreach ($this->items as $numeral) {
+            if ($symbol === $numeral->symbol()) {
+                return $numeral;
+            }
+        }
+
+        // theoretically, it does not reach here (not tested)
+        throw new \DomainException(
+          sprintf('Symbol "%s" not found in list.', $symbol)
+        );
+    }
+
+    /**
      * Finds one roman numeral by its value.
      *
      * @param int $number
