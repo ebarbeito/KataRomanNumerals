@@ -46,7 +46,7 @@ class Converter
         $list = $this->map->reverseSort();
 
         while (0 < strlen($symbol)) {
-            $numeral = $this->findNumeralBySymbol($list, $symbol);
+            $numeral = $this->findNumeralOfTwoOrOneCharacter($list, $symbol);
 
             $result += $numeral->value();
             $symbol = substr($symbol, strlen($numeral->symbol()), strlen($symbol));
@@ -78,14 +78,14 @@ class Converter
     }
 
     /**
-     * Finds roman numeral by symbol.
+     * Finds roman numeral looking for two or one character.
      *
      * @param Numerals $list
-     * @param string $symbol
+     * @param string $symbol Roman symbol where look for.
      *
      * @return Numeral
      */
-    private function findNumeralBySymbol($list, $symbol)
+    private function findNumeralOfTwoOrOneCharacter($list, $symbol)
     {
         try {
             $twoCharacters = substr($symbol, 0, 2);
