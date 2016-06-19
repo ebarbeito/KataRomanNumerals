@@ -34,28 +34,6 @@ class Converter
     }
 
     /**
-     * Encode number to roman representation.
-     *
-     * @param int $number
-     *
-     * @return string Number encoded to roman.
-     */
-    public function encode($number)
-    {
-        $result = '';
-        $list = $this->map->reverseSort();
-
-        while (0 < $number) {
-            $numeral = $this->findNumeralByValue($list, $number);
-
-            $result .= $numeral->symbol();
-            $number -= $numeral->value();
-        }
-
-        return $result;
-    }
-
-    /**
      * Decode roman representation to number.
      *
      * @param string $symbol
@@ -78,6 +56,28 @@ class Converter
     }
 
     /**
+     * Encode number to roman representation.
+     *
+     * @param int $number
+     *
+     * @return string Number encoded to roman.
+     */
+    public function encode($number)
+    {
+        $result = '';
+        $list = $this->map->reverseSort();
+
+        while (0 < $number) {
+            $numeral = $this->findNumeralByValue($list, $number);
+
+            $result .= $numeral->symbol();
+            $number -= $numeral->value();
+        }
+
+        return $result;
+    }
+
+    /**
      * Finds roman numeral by symbol.
      *
      * @param Numerals $list
@@ -88,9 +88,11 @@ class Converter
     private function findNumeralBySymbol($list, $symbol)
     {
         try {
-            $result = $list->findOneBySymbol(substr($symbol, 0, 2));
+            $twoCharacters = substr($symbol, 0, 2);
+            $result = $list->findOneBySymbol($twoCharacters);
         } catch (\DomainException $ex) {
-            $result = $list->findOneBySymbol(substr($symbol, 0, 1));
+            $oneCharacter = substr($symbol, 0, 1);
+            $result = $list->findOneBySymbol($oneCharacter);
         } finally {
             return $result;
         }
