@@ -2,24 +2,17 @@
 
 namespace KataRomanNumerals;
 
-class Numerals implements \ArrayAccess, \Countable
+class Numerals extends \ArrayObject
 {
-
-    /**
-     * @var Numeral[]
-     */
-    private $items;
 
     /**
      * Numerals constructor.
      *
-     * @param Numeral ...$numerals
+     * @param Numeral|Numeral[] ...$numerals
      */
     public function __construct(Numeral ...$numerals)
     {
-        $this->items = array_map(function($numeral) {
-            return $numeral;
-        }, $numerals);
+        parent::__construct($numerals);
     }
 
     /**
@@ -31,17 +24,9 @@ class Numerals implements \ArrayAccess, \Countable
      */
     public function add(Numeral $numeral)
     {
-        $this->items[] = $numeral;
+        $this->append($numeral);
 
         return $this;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function count()
-    {
-        return count($this->items);
     }
 
     /**
@@ -53,79 +38,23 @@ class Numerals implements \ArrayAccess, \Countable
      *
      * @throws \DomainException
      */
-    public function findOneByValue($number)
+    public function findTheSmallestGreaterNumber($number)
     {
-        foreach ($this->items as $value => $numeral) {
-            if ($number >= $numeral->value()) {
-                return $numeral;
+        $result = null;
+        /** @var Numeral $numeral */
+        foreach ($this->getArrayCopy() as $numeral) {
+            if ($number < $numeral->value()) {
+                break;
             }
+            $result = $numeral;
         }
 
-        // theoretically, it does not reach here (not tested)
-        throw new \DomainException(
-          sprintf('Value "%d" not found in list.', $number)
-        );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function offsetExists($offset)
-    {
-        return true === array_key_exists($offset, $this->items);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function offsetGet($offset)
-    {
-        return (true === isset($this->items[$offset]))
-          ? $this->items[$offset]
-          : null;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function offsetSet($offset, $value)
-    {
-        if (null !== $offset) {
-            $this->items[$offset] = $value;
-        } else {
-            $this->items[] = $value;
-        }
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function offsetUnset($offset)
-    {
-        unset($this->items[$offset]);
-    }
-
-    /**
-     * Returns a new numeral list sorted in reverse order.
-     *
-     * @return Numerals
-     */
-    public function reverseSort()
-    {
-        $list = [];
-
-        foreach ($this->items as $numeral) {
-            $key = $numeral->value();
-
-            $list[$key] = $numeral;
+        if ($result == null) {
+            throw new \DomainException(
+                sprintf('Value "%d" not found in list.', $number)
+            );
         }
 
-        krsort($list);
-
-        return array_reduce(
-          array_values($list),
-          function (Numerals $result, Numeral $numeral) {
-              return $result->add($numeral);
-          }, new Numerals());
+        return $result;
     }
 }
